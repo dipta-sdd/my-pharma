@@ -9,7 +9,7 @@ class ProductStrength extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['product_id', 'strength', 'base_buying_price', 'base_selling_price'];
+    protected $fillable = ['product_id', 'strength', 'base_buying_price', 'base_selling_price', 'created_by', 'updated_by'];
 
     public function product()
     {

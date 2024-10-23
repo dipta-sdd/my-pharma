@@ -52,8 +52,15 @@ class SupplyController extends Controller
         $supply = Supply::where('id', $request->input('id'))
             ->with(['creator', 'supplier', 'payments', 'branch'])
             ->first();
+        $products = Batch::selectRaw('batches.*, products.name AS name, product_strengths.strength as strength, users.name as creator, branches.name as branche')
+            ->join('product_strengths', 'batches.product_strength_id', '=', 'product_strengths.id')
+            ->join('products', 'product_strengths.product_id', '=', 'products.id')
+            ->join('branches', 'batches.branch_id', '=', 'branches.id')
+            ->join('users', 'batches.created_by', '=', 'users.id')
+            ->where('batches.supply_id', $supply->id)
+            ->get();
 
-        return view('supply', ['supply' => $supply]);
+        return view('supply', ['supply' => $supply, 'products' => $products]);
     }
     public function availableProducts($id, Request $request)
     {
@@ -85,16 +92,24 @@ class SupplyController extends Controller
     }
     public function all(Request $request)
     {
-        if ($request->has('branch_id')) {
 
-            $branch_id = $request->input('branch_id');
-        } else {
-
+        if (!auth()->user()->role == 'admin' || !auth()->user()->role == 'manager') {
             $branch_id = auth()->user()->branch_id;
+            $supplies = Supply::when($branch_id, function ($query, $branch_id) {
+                return $query->where('branch_id', $branch_id);
+            })->with(['creator', 'supplier', 'payments', 'branch'])->get();
+        } else {
+            if ($request->has('branch_id')) {
+                $branch_id = $request->input('branch_id');
+                $supplies = Supply::when($branch_id, function ($query, $branch_id) {
+                    return $query->where('branch_id', $branch_id);
+                })->with(['creator', 'supplier', 'payments', 'branch'])->get();
+            } else {
+                $supplies = Supply::with(['creator', 'supplier', 'payments', 'branch'])->get();
+            }
         }
-        $supplies = Supply::when($branch_id, function ($query, $branch_id) {
-            return $query->where('branch_id', $branch_id);
-        })->with(['creator', 'supplier', 'payments', 'branch'])->get();
+
+
         $suppliers = Supplier::all();
         $branches = Branch::all();
         return view('supplys', ['suppliers' => $suppliers, 'supplies' => $supplies, 'branches' => $branches]);
@@ -112,10 +127,8 @@ class SupplyController extends Controller
             'expiration_date' => 'required|date_format:Y-m-d',
         ]);
         if ($request->has('branch_id')) {
-
             $branch_id = $request->input('branch_id');
         } else {
-
             $branch_id = auth()->user()->branch_id;
         }
 
@@ -130,8 +143,6 @@ class SupplyController extends Controller
             'branch_id' => $branch_id,
             'created_by' => auth()->user()->id,
         ]);
-
-        // $batch = Batch::where('id', $batch->id)->with(['productStrength', 'supply', 'branch'])->first();
         $batch = Batch::selectRaw('batches.*, products.name AS name, product_strengths.strength as strength, users.name as creator, branches.name as branche')
             ->join('product_strengths', 'batches.product_strength_id', '=', 'product_strengths.id')
             ->join('products', 'product_strengths.product_id', '=', 'products.id')

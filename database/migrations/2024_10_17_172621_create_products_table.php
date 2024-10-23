@@ -15,6 +15,8 @@ return new class extends Migration
             $table->foreignId('supplier_id')->nullable()->constrained();
             $table->foreignId('generic_name_id')->nullable()->constrained();
             $table->string('type'); // e.g., 'tablet', 'capsule', 'syrup'
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamps();
         });
     }

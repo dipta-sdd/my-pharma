@@ -25,6 +25,7 @@ class User extends Authenticatable
         'password',
         'role',
         'branch_id',
+        'created_by',
     ];
 
     public function branch()

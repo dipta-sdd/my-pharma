@@ -14,6 +14,8 @@ return new class extends Migration
             $table->string('strength')->nullable(); // e.g., '120mg', '500mg', '10ml'
             $table->decimal('base_buying_price', 10, 2)->nullable();
             $table->decimal('base_selling_price', 10, 2)->nullable();
+            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamps();
         });
     }

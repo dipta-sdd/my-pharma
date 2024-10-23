@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-bs-theme="auto">
+<html lang="en">
 
 <head>
 
@@ -30,11 +30,12 @@
             @include('sidebar')
 
             <main class="col-md-9 ms-sm-auto col-lg-10 p-2 px-md-4 ">
-                <label class="mb-2" for="" style="width: max-content ! important;">Select Supplier :</label>
-                <form action=" /create-supply" method="post"
-                    class="d-inline-flex align-items-center w-100 needs-validation">
+                <h2>Supplys</h2>
+                <hr>
+                <form action=" /create-supply" method="post" class="row needs-validation">
                     @csrf
-                    <div class="form-group me-2 flex-grow-1" required>
+                    <div class="col-lg-5 mb-2">
+                        <label for="branch_id" class="form-label">Branch : </label>
                         <select id="branch_id" class="form-control" name="branch_id" @if (auth()->user()->role ==
                             'user') disabled @endif required>
                             <option value="">Select Branch</option>
@@ -46,7 +47,8 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group me-2 flex-grow-1" required>
+                    <div class="col-lg-5 mb-2">
+                        <label for="supplier_id" class="form-label">Select Supplier : </label>
                         <select id="supplier_id" class="form-control" name="supplier_id">
                             <option value="null" selected>Normal Entry</option>
                             @foreach ($suppliers as $id => $supplier)
@@ -54,7 +56,10 @@
                             @endforeach
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary">Create New Supply</button>
+                    <div class="col-lg-2 mb-2 d-flex align-items-end justify-content-end">
+                        <button type="submit" class="btn btn-primary">Create New Supply</button>
+                    </div>
+
                 </form>
                 <hr>
 
@@ -65,6 +70,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Supplier</th>
+                                <th>SL No</th>
                                 <th>Branch</th>
                                 <th>Status</th>
                                 <th>Amount</th>
@@ -78,6 +84,7 @@
                             <tr supply_id="{{ $supply->id }}" class="cursor-pointer">
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $supply->supplier->name ?? 'Normal Entry' }}</td>
+                                <td>{{ $supply->id }}</td>
                                 <td class="text-capitalize">{{ $supply->branch->name }}</td>
                                 <td class="text-capitalize">{{ $supply->status }}</td>
                                 <td class="text-capitalize">{{ $supply->total_price }}</td>

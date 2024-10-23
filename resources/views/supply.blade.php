@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-bs-theme="auto">
+<html lang="en">
 
 <head>
 
@@ -117,8 +117,35 @@
                         <button type="submit" class="btn btn-primary">Add</button>
                     </div>
                 </form>
+                <div class="table-responsive">
 
-
+                    <table class="ttable table-striped table-hover mybg border">
+                        <thead>
+                            <tr>
+                                <th>SL</th>
+                                <th>Product Name</th>
+                                <th>Strength</th>
+                                <th>Supplied Quantity</th>
+                                <th>Buying Price</th>
+                                <th>Selling Price</th>
+                                <th>Expiration Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="product_list">
+                            @foreach ($products as $key => $product)
+                            <tr>
+                                <td>{{ $key + 1 }}</td>
+                                <td>{{ $product->name }}</td>
+                                <td>{{ $product->strength }}</td>
+                                <td>{{ $product->supplied_quantity }}</td>
+                                <td>{{ $product->buying_price }}</td>
+                                <td>{{ $product->selling_price }}</td>
+                                <td>{{ $product->expiration_date }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
 
             </main>
         </div>
@@ -218,7 +245,18 @@
                 headers: {
                     "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
                 },
-                success: function(response) {
+                success: function(product) {
+                    $('#product_list').append(`
+                        <tr>
+                            <td>${product.id}</td>
+                            <td>${product.name}</td>
+                            <td>${product.strength}</td>
+                            <td>${product.supplied_quantity}</td>
+                            <td>${product.buying_price}</td>
+                            <td>${product.selling_price}</td>
+                            <td>${product.expiration_date}</td>
+                        </tr>
+                    `);
 
                 },
                 error: function(xhr) {

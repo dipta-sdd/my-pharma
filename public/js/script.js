@@ -1,13 +1,3 @@
-/* global bootstrap: false */
-// () => {
-//     "use strict";
-//     const tooltipTriggerList = Array.from(
-//         document.querySelectorAll('[data-bs-toggle="tooltip"]')
-//     );
-//     tooltipTriggerList.forEach((tooltipTriggerEl) => {
-//         new bootstrap.Tooltip(tooltipTriggerEl);
-//     });
-// };
 $(document).ready(function () {
     let theme = localStorage.getItem("theme");
     if (theme) {
@@ -30,11 +20,12 @@ $(document).ready(function () {
     // console.log(path);
     $("#sidebarMenu li a").each(function () {
         if ($(this).attr("href") == path) {
-            $(this).parent().parent().collapse("show");
+            // $(this).parent().parent().collapse("show");
+            $(this).parent().addClass("active");
+            $(".collapse").collapse("hide");
+            $(this).parent().parent().parent().collapse("show");
         }
     });
-
-    $("#supply-collapse").collapse("show");
 });
 $(document).on("click", ".bd-mode-toggle .dropdown-item", function (event) {
     event.preventDefault();

@@ -74,6 +74,54 @@
                         </ul>
                     </div>
                 </li>
+                @if (auth()->user()->role == 'admin' || auth()->user()->role == 'manager')
+                <li class="mb-1">
+                    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                        data-bs-toggle="collapse" data-bs-target="#branch-collapse" aria-expanded="false">
+                        <i class="fas fa-code-branch"></i> &nbsp; Branch
+                    </button>
+                    <div class="collapse" id="branch-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            <li><a href="/branches"
+                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">All Branch</a>
+                            </li>
+                            <li><a href="/branches/create"
+                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">Add Branch</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                @endif
+                <li class="mb-1">
+                    <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+                        data-bs-toggle="collapse" data-bs-target="#users-collapse" aria-expanded="false">
+                        <i class="fas fa-users"></i> &nbsp; Users
+                    </button>
+                    <div class="collapse" id="users-collapse">
+                        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            @if (auth()->user()->role =='admin')
+                            <li><a href="/users"
+                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">All Users</a>
+                            </li>
+                            <li><a href="/users/add"
+                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">Add
+                                    User</a></li>
+                            <li><a href="/users?role=manager"
+                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">Managers</a>
+                            </li>
+                            <li><a href="/users?role=branch_manager"
+                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">Branch
+                                    Managers</a></li>
+                            @endif
+                            <li><a href="/users?role=cashier"
+                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">Cashiers</a>
+                            </li>
+                            <li><a href="/users?role=staff"
+                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">Staffs</a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
                 <li class="border-top my-3"></li>
                 <li class="mb-1">
                     <button
