@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\SupplyController;
+use App\Http\Controllers\UserController;
 use App\Models\Branch;
 use Illuminate\Support\Facades\Route;
 use App\Models\Supplier;
@@ -112,4 +113,11 @@ Route::post('/branches/edit/{id}', function (BranchController $branchController)
         }
         return $branchController->update(request('id'), request());
     }
+});
+// users
+Route::get('/users', function (UserController $userController) {
+    if (!auth()->check()) {
+        return redirect('/login');
+    }
+    return $userController->index(request());
 });
