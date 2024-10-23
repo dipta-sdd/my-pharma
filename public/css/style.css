@@ -99,8 +99,9 @@
  .form-control:focus{
   box-shadow: none;
  }
+ a.btn,
  button.btn{
-  border-radius: 1px;
+  border-radius: 0px !important;
  }
  .sidebar.border-right{
   border: none !important;
@@ -123,6 +124,10 @@
 
  .cursor-pointer{
   cursor: pointer;
+ }
+
+ .card{
+  border-radius: 0px !important;
  }
  /* main */
  main{

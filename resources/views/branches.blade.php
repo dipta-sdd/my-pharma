@@ -27,10 +27,22 @@
             @include('sidebar')
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <h2>All Branches</h2>
-                <hr>
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">All Branches</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group me-2">
+                            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary">Print</button>
+                        </div>
+                        <a type="button" class="btn btn-sm btn-primary" href="/branches/create">
+                            <i class="fas fa-plus"></i> Add New User
+                        </a>
+                    </div>
+                </div>
+
                 <div class="table-responsive">
-                    <table class="table table-striped table-hover mybg border">
+                    <table class="table table-striped table-sm table-hover mybg border">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -41,7 +53,7 @@
                                 <th>Updated By</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
-                                <th></th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -57,8 +69,11 @@
                                 <td>{{ $branch->created_at }}</td>
                                 <td>{{ $branch->updated_at }}</td>
 
-                                <td> <a href="/branches/edit/{{$branch->id }}"><i class="fa-solid fa-pencil"
-                                            aria-hidden="true"></i></a>
+                                <!-- <td> <a><i class="fa-solid fa-pencil" aria-hidden="true"></i></a> </td> -->
+                                <td class="text-end"><a class="btn btn-sm btn-outline-primary me-1" title="Edit"
+                                        href="/branches/edit/{{$branch->id }}">
+                                        <i class="fas fa-edit"></i>
+                                    </a></td>
                             </tr>
 
                             @endforeach

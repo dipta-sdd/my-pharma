@@ -15,9 +15,6 @@
 
     <link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('/css/style.css') }}" rel="stylesheet">
-    <link href="{{ asset('/css/select_search.css') }}" rel="stylesheet">
-
-
 </head>
 
 <body>
@@ -41,6 +38,15 @@
                             <i class="fas fa-download"></i> Export
                         </button>
                     </div>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group me-2">
+                            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary">Print</button>
+                        </div>
+                        <a type="button" class="btn btn-sm btn-primary" href="#">
+                            <i class="fas fa-plus"></i> Add New
+                        </a>
+                    </div>
                 </div>
 
                 <div class="card mb-4">
@@ -52,25 +58,16 @@
                             @csrf
                             <div class="col-md-5">
                                 <label for="branch_id" class="form-label">Branch</label>
-                                <select id="branch_id" class="form-control" name="branch_id" @if (auth()->user()->role
-                                    ==
-                                    'user') disabled @endif required>
+                                <select id="branch_id" class="form-control" name="branch_id" required>
                                     <option value="">Select Branch</option>
-                                    @foreach ($branches as $branch)
-                                    <option value="{{ $branch->id }}"
-                                        {{ auth()->user()->branch_id == $branch->id ? 'selected' : '' }}>
-                                        {{ $branch->name }}
-                                    </option>
-                                    @endforeach
+
                                 </select>
                             </div>
                             <div class="col-md-5">
                                 <label for="supplier_id" class="form-label">Supplier</label>
                                 <select id="supplier_id" class="form-control" name="supplier_id">
                                     <option value="null" selected>Normal Entry</option>
-                                    @foreach ($suppliers as $id => $supplier)
-                                    <option value="{{ $id }}">{{ $supplier->name }}</option>
-                                    @endforeach
+
                                 </select>
                             </div>
                             <div class="col-md-2 d-flex align-items-end">
@@ -132,24 +129,7 @@
                                     </tr>
                                 </thead>
                                 <tbody class="supply-table">
-                                    @foreach ($supplies as $index => $supply)
-                                    <tr supply_id="{{ $supply->id }}" class="cursor-pointer">
-                                        <td>{{ $index + 1 }}</td>
-                                        <td>{{ $supply->supplier->name ?? 'Normal Entry' }}</td>
-                                        <td>{{ $supply->id }}</td>
-                                        <td class="text-capitalize">{{ $supply->branch->name }}</td>
-                                        <td class="text-capitalize">
-                                            <span
-                                                class="badge bg-{{ $supply->status === 'completed' ? 'success' : ($supply->status === 'pending' ? 'warning' : 'danger') }}">
-                                                {{ $supply->status }}
-                                            </span>
-                                        </td>
-                                        <td>${{ number_format($supply->total_price, 2) }}</td>
-                                        <td>{{ $supply->created_at->format('M d, Y H:i') }}</td>
-                                        <td>{{ $supply->updated_at->format('M d, Y H:i') }}</td>
-                                        <td class="text-capitalize">{{ $supply->creator->name }}</td>
-                                    </tr>
-                                    @endforeach
+
                                 </tbody>
                             </table>
                         </div>
@@ -162,22 +142,6 @@
     <script src="{{ asset('/js/popper.min.js') }}"></script>
     <script src="{{ asset('/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('/js/script.js') }}"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js"
-        integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
-
 </body>
-<script>
-$(document).ready(function() {
-    $('#supplier_id').selectize({
-        sortField: 'text'
-    });
-    $('.supply-table tr').click(function(e) {
-        e.preventDefault();
-        var supply_id = $(this).attr('supply_id');
-        window.location.href = "/supply?id=" + supply_id;
-    });
-});
-</script>
 
 </html>

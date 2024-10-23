@@ -20,6 +20,12 @@ Route::get('/', function () {
 Route::get('/login', function () {
     return view('/login');
 });
+Route::get('/tmp', function () {
+    return view('/tmp');
+});
+Route::get('/tmp2', function () {
+    return view('/tmp2');
+});
 // sidebar
 
 Route::get('/dashboard', function () {

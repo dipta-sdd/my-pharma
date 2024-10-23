@@ -15,7 +15,7 @@ class UserController extends Controller
                 ->leftJoin('users as c', 'users.created_by', '=', 'c.id')
                 ->leftJoin('users as u', 'users.updated_by', '=', 'u.id')
                 ->get();
-            dd(json_encode($users));
+            // dd(json_encode($users));
         }
         //  else if (auth()->user()->role == 'branch_manager') {
         //     $users = User::selectRaw('users.* , branches.name as branch_name')
