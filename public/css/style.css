@@ -135,3 +135,12 @@
     /* background-color: var(--bs-body-bg); */
     /* background-color: var(--mybg); */
  }
+
+ /* hide in printing */
+
+ @media print {
+  .p-none{
+    display: none;
+  }
+
+ }

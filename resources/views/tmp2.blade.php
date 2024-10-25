@@ -83,11 +83,7 @@
                     </div>
                     <div class="card-body">
                         <form id="filter-form" class="row g-3 mb-4">
-                            <div class="col-md-3">
-                                <label for="filter-supplier" class="form-label">Supplier</label>
-                                <input type="text" id="filter-supplier" name="filter-supplier" class="form-control"
-                                    placeholder="Filter by supplier">
-                            </div>
+
                             <div class="col-md-3">
                                 <label for="filter-branch" class="form-label">Branch</label>
                                 <input type="text" id="filter-branch" name="filter-branch" class="form-control"
@@ -110,6 +106,13 @@
                                     <option value="total_price">Amount</option>
                                     <option value="supplier">Supplier</option>
                                     <option value="branch">Branch</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="sort-order" class="form-label">Sort Order</label>
+                                <select id="sort-order" name="sort-order" class="form-control">
+                                    <option value="asc">Ascending</option>
+                                    <option value="desc">Descending</option>
                                 </select>
                             </div>
                         </form>

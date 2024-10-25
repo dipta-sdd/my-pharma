@@ -232,6 +232,8 @@
             </main>
 
 
+
+
         </div>
     </div>
     <script src="{{ asset('/js/jquery-3.7.1.min.js') }}"></script>
@@ -242,95 +244,95 @@
 
 </body>
 <script>
-    $(document).ready(function() {
+$(document).ready(function() {
 
-        let url = "/api/supply/available-products/" + $('#product_id').attr('supply');
+    let url = "/api/supply/available-products/" + $('#product_id').attr('supply');
 
-        $("#product_id").autocomplete({
-            source: url,
-            select: function(event, ui) {
-                // console.log(ui.item);
-                $('#product_id').attr('data-val', ui.item.id);
-                $.ajax({
-                    type: "get",
-                    url: "/api/product/strength/" + ui.item.id,
-                    success: function(prod) {
-                        $.map(prod.product_strengths, function(strength, indexOrKey) {
-                            $('#strength_id').append(`
+    $("#product_id").autocomplete({
+        source: url,
+        select: function(event, ui) {
+            // console.log(ui.item);
+            $('#product_id').attr('data-val', ui.item.id);
+            $.ajax({
+                type: "get",
+                url: "/api/product/strength/" + ui.item.id,
+                success: function(prod) {
+                    $.map(prod.product_strengths, function(strength, indexOrKey) {
+                        $('#strength_id').append(`
                                 <option value="${strength.id}">${strength.strength  }</option>
                             `);
-                        });
-                        $('#strength_id').focus();
-                    }
-                });
-            }
-        });
+                    });
+                    $('#strength_id').focus();
+                }
+            });
+        }
+    });
 
-        $('#strength_id').change(function() {
-            if ($('#strength_id').val()) {
-                $('#supplied_quantity').focus();
-                $(this).removeClass('is-invalid');
-            } else
-                $(this).addClass('is-invalid');
-        });
+    $('#strength_id').change(function() {
+        if ($('#strength_id').val()) {
+            $('#supplied_quantity').focus();
+            $(this).removeClass('is-invalid');
+        } else
+            $(this).addClass('is-invalid');
+    });
 
-        $('#supplied_quantity').keypress(function(e) {
-            if (e.which == 13) {
-                e.preventDefault();
-                $('#buying_price').focus();
-            }
-        });
-
-        $('#buying_price').keypress(function(e) {
-            if (e.which == 13) {
-                e.preventDefault();
-                $('#selling_price').focus();
-            }
-        });
-
-        $('#selling_price').keypress(function(e) {
-            if (e.which == 13) {
-                e.preventDefault();
-                $('#expiration_date').focus();
-            }
-        });
-
-        $('#expiration_date').keypress(function(e) {
-            if (e.which == 13) {
-                e.preventDefault();
-                $('button[type=submit]').focus();
-            }
-        });
-        // on product_add submit
-        $('#product_add').submit(function(e) {
+    $('#supplied_quantity').keypress(function(e) {
+        if (e.which == 13) {
             e.preventDefault();
-            let supply_id = $('#supply_id').val();
-            let product_id = $('#product_id').attr('data-val');
-            let strength_id = $('#strength_id').val();
-            let supplied_quantity = $('#supplied_quantity').val();
-            let buying_price = $('#buying_price').val();
-            let selling_price = $('#selling_price').val();
-            let expiration_date = $('#expiration_date').val();
-            $.ajax({
-                type: "post",
-                url: "/api/supply/batch/add",
-                data: {
-                    supply_id: supply_id,
-                    product_id: product_id,
-                    strength_id: strength_id,
-                    supplied_quantity: supplied_quantity,
-                    buying_price: buying_price,
-                    selling_price: selling_price,
-                    expiration_date: expiration_date
-                },
-                xhrFields: {
-                    withCredentials: true,
-                },
-                headers: {
-                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-                },
-                success: function(product) {
-                    $('#product_list').append(`
+            $('#buying_price').focus();
+        }
+    });
+
+    $('#buying_price').keypress(function(e) {
+        if (e.which == 13) {
+            e.preventDefault();
+            $('#selling_price').focus();
+        }
+    });
+
+    $('#selling_price').keypress(function(e) {
+        if (e.which == 13) {
+            e.preventDefault();
+            $('#expiration_date').focus();
+        }
+    });
+
+    $('#expiration_date').keypress(function(e) {
+        if (e.which == 13) {
+            e.preventDefault();
+            $('button[type=submit]').focus();
+        }
+    });
+    // on product_add submit
+    $('#product_add').submit(function(e) {
+        e.preventDefault();
+        let supply_id = $('#supply_id').val();
+        let product_id = $('#product_id').attr('data-val');
+        let strength_id = $('#strength_id').val();
+        let supplied_quantity = $('#supplied_quantity').val();
+        let buying_price = $('#buying_price').val();
+        let selling_price = $('#selling_price').val();
+        let expiration_date = $('#expiration_date').val();
+        $.ajax({
+            type: "post",
+            url: "/api/supply/batch/add",
+            data: {
+                supply_id: supply_id,
+                product_id: product_id,
+                strength_id: strength_id,
+                supplied_quantity: supplied_quantity,
+                buying_price: buying_price,
+                selling_price: selling_price,
+                expiration_date: expiration_date
+            },
+            xhrFields: {
+                withCredentials: true,
+            },
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            success: function(product) {
+                $('#product_list').append(`
                         <tr>
                             <td>${product.id}</td>
                             <td>${product.name}</td>
@@ -342,20 +344,20 @@
                         </tr>
                     `);
 
-                },
-                error: function(xhr) {
-                    if (xhr.responseJSON) {
-                        labelErrors('#product_add .form-control', xhr.responseJSON.errors);
-                    }
+            },
+            error: function(xhr) {
+                if (xhr.responseJSON) {
+                    labelErrors('#product_add .form-control', xhr.responseJSON.errors);
                 }
-            });
+            }
         });
-
-
-
-
-
     });
+
+
+
+
+
+});
 </script>
 
 </html>
