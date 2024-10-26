@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BranchController;
+use App\Http\Controllers\ExportController;
 use App\Http\Controllers\SupplyController;
 use App\Http\Controllers\UserController;
 use App\Models\Branch;
@@ -69,8 +70,18 @@ Route::get('/branches', function (BranchController $branchController) {
         if (auth()->user()->role != 'admin' && auth()->user()->role != 'manager') {
             return redirect('/dashboard');
         }
-        $branches = Branch::all();
         return $branchController->allBranch(request());
+    }
+});
+// export branche
+Route::get('/export/branches', function (ExportController $exportController) {
+    if (!auth()->check()) {
+        return redirect('/login');
+    } else {
+        if (auth()->user()->role != 'admin' && auth()->user()->role != 'manager') {
+            return redirect('/dashboard');
+        }
+        return $exportController->branchExport(request());
     }
 });
 
