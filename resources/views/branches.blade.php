@@ -33,7 +33,9 @@
                     <div class="btn-toolbar mb-2 mb-md-0">
                         <div class="btn-group me-2">
                             <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-                            <button type="button" class="btn btn-sm btn-outline-secondary">Print</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.print()">
+                                Print
+                            </button>
                         </div>
                         <a type="button" class="btn btn-sm btn-primary" data-bs-toggle="collapse"
                             href="#add_branch_collapse" role="button" aria-expanded="false"
@@ -42,7 +44,6 @@
                         </a>
                     </div>
                 </div>
-
                 <form action="/branches/create" method="post" class=" collapse  {{ $errors->any() ? 'errors' : '' }}"
                     id="add_branch_collapse" data-bs-parent="#add_branch_collapse_btn">
                     @csrf
