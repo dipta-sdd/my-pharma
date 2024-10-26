@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BranchController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\SupplyController;
 use Illuminate\Http\Request;
@@ -19,4 +20,7 @@ Route::middleware('web')->group(function () {
     Route::get('/supply/available-products/{id}', [SupplyController::class, 'availableProducts']);
     Route::get('/product/strength/{id}', [GeneralController::class, 'strengthByProduct']);
     Route::post('/supply/batch/add', [SupplyController::class, 'addProdToBatch']);
+
+    // branch
+    Route::post('/branches/edit/{id}', [BranchController::class, 'update']);
 });

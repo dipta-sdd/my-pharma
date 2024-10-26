@@ -14,7 +14,7 @@ class BranchController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'address' => ['required', 'string'],
-            'contact_info' => ['required', 'numeric', 'min:11'],
+            'contact_info' => ['required', 'numeric', 'digits_between:11,14'],
         ]);
 
         $branch = Branch::create([
@@ -30,14 +30,15 @@ class BranchController extends Controller
     public function update($id, Request $request)
     {
         $data = $request->validate([
-            'name' => ['string', 'max:255'],
-            'address' => ['string'],
-            'contact_info' => ['numeric', 'min:11'],
+            'name' => ['required', 'string', 'max:255'],
+            'address' => ['required', 'string'],
+            'contact_info' => ['required', 'numeric', 'digits_between:11,14'],
         ]);
+
         $data['updated_by'] = auth()->user()->id;
         $branch = Branch::where('id', $id)->first();
         $branch->update($data);
-        return redirect('/branches');
+        return response()->json($branch);
     }
 
     public function allBranch(Request $request)

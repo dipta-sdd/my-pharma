@@ -13,7 +13,7 @@ Route::get('/', function () {
     if (!auth()->check()) {
         return redirect('/login');
     }
-    return view('home');
+    return view('pos');
 });
 
 
@@ -75,17 +75,6 @@ Route::get('/branches', function (BranchController $branchController) {
 });
 
 // create branche
-Route::get('/branches/create', function () {
-    if (!auth()->check()) {
-        return redirect('/login');
-    } else {
-        if (auth()->user()->role != 'admin' && auth()->user()->role != 'manager') {
-            return redirect('/dashboard');
-        }
-        return view('branches-create');
-    }
-});
-
 Route::post('/branches/create', function (BranchController $branchController) {
     if (!auth()->check()) {
         return redirect('/login');
@@ -94,30 +83,6 @@ Route::post('/branches/create', function (BranchController $branchController) {
             return redirect('/dashboard');
         }
         return $branchController->create(request());
-    }
-});
-
-// edit branch
-Route::get('/branches/edit/{id}', function () {
-    if (!auth()->check()) {
-        return redirect('/login');
-    } else {
-        if (auth()->user()->role != 'admin' && auth()->user()->role != 'manager') {
-            return redirect('/dashboard');
-        }
-        $branch = Branch::where('id', request('id'))->first();
-        return view('branches-edit', ['branch' => $branch]);
-    }
-});
-
-Route::post('/branches/edit/{id}', function (BranchController $branchController) {
-    if (!auth()->check()) {
-        return redirect('/login');
-    } else {
-        if (auth()->user()->role != 'admin' && auth()->user()->role != 'manager') {
-            return redirect('/dashboard');
-        }
-        return $branchController->update(request('id'), request());
     }
 });
 // users

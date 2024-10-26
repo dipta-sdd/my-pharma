@@ -85,9 +85,7 @@
                             <li><a href="/branches"
                                     class="link-body-emphasis d-inline-flex text-decoration-none rounded">All Branch</a>
                             </li>
-                            <li><a href="/branches/create"
-                                    class="link-body-emphasis d-inline-flex text-decoration-none rounded">Add Branch</a>
-                            </li>
+
                         </ul>
                     </div>
                 </li>
