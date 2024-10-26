@@ -129,6 +129,10 @@
  .card{
   border-radius: 0px !important;
  }
+
+ .table>thead {
+   vertical-align: top;
+ }
  /* main */
  main{
     background-color: var(--bs-secondary-bg);
@@ -140,7 +144,7 @@
 
  @media print {
   .p-none{
-    display: none;
+    display: none !important;
   }
     .table-responsive {
       overflow-x: unset;
@@ -267,4 +271,20 @@
       --bs-form-invalid-border-color: #dc3545
     }
 
+    * {
+      -webkit-print-color-adjust: exact !important;
+      /* Chrome, Safari 6 – 15.3, Edge */
+      color-adjust: exact !important;
+      /* Firefox 48 – 96 */
+      print-color-adjust: exact !important;
+      /* Firefox 97+, Safari 15.4+ */
+    }
+
+    thead {
+      display: table-header-group;
+    }
+    /* HIDE LAST COLUMN */
+    table.p-none-lst-chlild td:last-child, table.p-none-lst-chlild th:last-child {
+      display: none;
+    }
  }

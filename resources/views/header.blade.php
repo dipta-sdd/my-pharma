@@ -1,4 +1,4 @@
-<div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle" style="z-index: 1500;">
+<div class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle p-none" style="z-index: 1500;">
     <button class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center text-light" id="bd-theme"
         type="button" aria-expanded="false" data-bs-toggle="dropdown" aria-label="Toggle theme (auto)">
         <i class="fa-solid fa-sun fs-5 me-2 light d-none"></i>

@@ -43,7 +43,7 @@
                     </div>
                 </div>
 
-                <div class="card mb-4">
+                <div class="card mb-4 p-none">
                     <div class="card-header">
                         <h5 class="card-title mb-0">Create New Supply</h5>
                     </div>
@@ -85,7 +85,7 @@
                         <h5 class="card-title mb-0">Supply List</h5>
                     </div>
                     <div class="card-body">
-                        <form id="filter-form" class="row g-3 mb-4">
+                        <form id="filter-form" class="row g-3 mb-4 p-none">
                             <div class="col-md-3">
                                 <label for="filter-supplier" class="form-label">Supplier</label>
                                 <input type="text" id="filter-supplier" name="filter-supplier" class="form-control"
@@ -116,6 +116,7 @@
                                 </select>
                             </div>
                         </form>
+                        <hr class="p-none">
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead>

@@ -190,7 +190,7 @@
                             </div>
                         </form>
                         <div class="table-responsive">
-                            <table class="table table-hover" id="products-table">
+                            <table class="table table-hover p-none-lst-chlild" id="products-table">
                                 <thead>
                                     <tr>
                                         <th>SL</th>
